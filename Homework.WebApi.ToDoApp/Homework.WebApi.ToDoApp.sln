@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework.WebApi.ToDoApp.DataModels", "Homework.WebApi.ToDoApp.DataModels\Homework.WebApi.ToDoApp.DataModels.csproj", "{72180738-2577-45C2-80E2-B623E2939926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework.WebApi.ToDoApp.Models", "Homework.WebApi.ToDoApp.Models\Homework.WebApi.ToDoApp.Models.csproj", "{42A98A62-9F9C-4250-AFC7-EEE6D5EA0271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework.WebApi.ToDoApp.DataAccess", "Homework.WebApi.ToDoApp.DataAccess\Homework.WebApi.ToDoApp.DataAccess.csproj", "{0B44B4FD-F949-4AB9-BB63-161F349E0CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework.WebApi.ToDoApp.Services", "Homework.WebApi.ToDoApp.Services\Homework.WebApi.ToDoApp.Services.csproj", "{E003281B-0969-4D88-9411-E66BCE16B885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework.WebApi.ToDoApp.Api", "Homework.WebApi.ToDoApp.Api\Homework.WebApi.ToDoApp.Api.csproj", "{CD5B3A1C-C80F-4246-8A6C-E10EE93B8444}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72180738-2577-45C2-80E2-B623E2939926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72180738-2577-45C2-80E2-B623E2939926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72180738-2577-45C2-80E2-B623E2939926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72180738-2577-45C2-80E2-B623E2939926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42A98A62-9F9C-4250-AFC7-EEE6D5EA0271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42A98A62-9F9C-4250-AFC7-EEE6D5EA0271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42A98A62-9F9C-4250-AFC7-EEE6D5EA0271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42A98A62-9F9C-4250-AFC7-EEE6D5EA0271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B44B4FD-F949-4AB9-BB63-161F349E0CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B44B4FD-F949-4AB9-BB63-161F349E0CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B44B4FD-F949-4AB9-BB63-161F349E0CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B44B4FD-F949-4AB9-BB63-161F349E0CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E003281B-0969-4D88-9411-E66BCE16B885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E003281B-0969-4D88-9411-E66BCE16B885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E003281B-0969-4D88-9411-E66BCE16B885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E003281B-0969-4D88-9411-E66BCE16B885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD5B3A1C-C80F-4246-8A6C-E10EE93B8444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD5B3A1C-C80F-4246-8A6C-E10EE93B8444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD5B3A1C-C80F-4246-8A6C-E10EE93B8444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5B3A1C-C80F-4246-8A6C-E10EE93B8444}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8307740C-02C9-42CC-BA67-E810912635AC}
+	EndGlobalSection
+EndGlobal
