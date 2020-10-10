@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Homework.WebApi.ToDoApp.DataAccess\Homework.WebApi.ToDoApp.DataAccess.csproj" />
     <ProjectReference Include="..\Homework.WebApi.ToDoApp.DataModels\Homework.WebApi.ToDoApp.DataModels.csproj" />
     <ProjectReference Include="..\Homework.WebApi.ToDoApp.Models\Homework.WebApi.ToDoApp.Models.csproj" />

@@ -2,6 +2,7 @@
 using Homework.WebApi.ToDoApp.Models;
 using Homework.WebApi.ToDoApp.Services.Exceptions;
 using Homework.WebApi.ToDoApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
             _toDoService = toDoService;
         }
 
-        [HttpGet("get-toDos/{userId}")]
+        [HttpGet("get-toDos/{userId}"), Authorize]
         public ActionResult<List<ToDoDto>> GetToDos(int userId)
         {
             try
@@ -29,7 +30,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
                 var response = _toDoService.GetUserToDos(userId);
                 return Ok(response);
             }
-            catch(ToDoException ex)
+            catch(CustomException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -39,7 +40,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
             }
         }
 
-        [HttpPost("add-todo/{userId}")]
+        [HttpPost("add-todo/{userId}"), Authorize]
         public IActionResult Add([FromBody]ToDoDto toDoRequest, int userId)
         {
             try
@@ -47,7 +48,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
                 _toDoService.AddToDo(toDoRequest, userId);
                 return Ok("To do added!");
             }
-            catch(ToDoException ex)
+            catch(CustomException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -57,7 +58,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
             }
         }
 
-        [HttpGet("get-todo/{toDoId}/{userId}")]
+        [HttpGet("get-todo/{toDoId}/{userId}"), Authorize]
         public ActionResult<ToDoDto> GetToDo(int toDoId, int userId)
         {
             try
@@ -65,7 +66,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
                 var response = _toDoService.GetToDo(toDoId, userId);
                 return Ok(response);
             }
-            catch (ToDoException ex)
+            catch (CustomException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -75,7 +76,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
             }
         }
 
-        [HttpDelete("delete-todo/{toDoId}/{userId}")]
+        [HttpDelete("delete-todo/{toDoId}/{userId}"), Authorize]
         public IActionResult Delete(int toDoId, int userId)
         {
             try
@@ -83,7 +84,7 @@ namespace Homework.WebApi.ToDoApp.Api.Controllers
                 _toDoService.DeleteToDo(toDoId, userId);
                 return Ok("ToDo deleted");
             }
-            catch(ToDoException ex)
+            catch(CustomException ex)
             {
                 return BadRequest(ex.Message);
             }

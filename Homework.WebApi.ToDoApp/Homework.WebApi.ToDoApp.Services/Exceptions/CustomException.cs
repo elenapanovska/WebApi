@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Homework.WebApi.ToDoApp.Services.Exceptions
 {
-    public class ToDoException : Exception
+    public class CustomException : Exception
     {
-        public ToDoException(string name)
+        public CustomException(string name)
          : base("Something went wrong")
         {
         }
 
-        public ToDoException(int? noteId, string name, string message)
+        public CustomException(int? Id, string name, string message)
             : base(message)
         {
         }

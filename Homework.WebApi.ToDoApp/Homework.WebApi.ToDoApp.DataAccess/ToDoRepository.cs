@@ -1,4 +1,5 @@
 ﻿using Homework.WebApi.ToDoApp.DataModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Homework.WebApi.ToDoApp.DataAccess
 
         public IEnumerable<ToDo> GetAll()
         {
-            return _context.ToDoTasks;
+            return _context.ToDoTasks.Include(x => x.SubTasks);
         }
 
         public ToDo GetById(int id)

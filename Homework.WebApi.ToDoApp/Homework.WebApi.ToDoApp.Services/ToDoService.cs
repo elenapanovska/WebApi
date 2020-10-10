@@ -1,4 +1,5 @@
-﻿using Homework.WebApi.ToDoApp.DataAccess;
+﻿using AutoMapper;
+using Homework.WebApi.ToDoApp.DataAccess;
 using Homework.WebApi.ToDoApp.DataModels;
 using Homework.WebApi.ToDoApp.Models;
 using Homework.WebApi.ToDoApp.Services.Exceptions;
@@ -14,11 +15,13 @@ namespace Homework.WebApi.ToDoApp.Services
     {
         private readonly IRepository<ToDo> _toDoRepository;
         private readonly IRepository<User> _userRepository;
+        private readonly IMapper _mapper;
 
-        public ToDoService(IRepository<ToDo> toDoRepository, IRepository<User> userRepository)
+        public ToDoService(IRepository<ToDo> toDoRepository, IRepository<User> userRepository, IMapper mapper)
         {
             _toDoRepository = toDoRepository;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public List<ToDoDto> GetUserToDos(int userId)
@@ -27,22 +30,10 @@ namespace Homework.WebApi.ToDoApp.Services
             
             if(user == null)
             {
-                throw new ToDoException(null, null, "User not found!");
+                throw new CustomException(null, null, "User not found!");
             }
 
-            var toDos = new List<ToDoDto>();
-
-            foreach (var toDo in user.ToDoTasks)
-            {
-                var toDoDto = new ToDoDto
-                {
-                    Id = toDo.Id,
-                    Name = toDo.Name,
-                    IsDone = toDo.IsDone,
-                    SubTasks = new List<SubTaskDto>()
-                };
-                toDos.Add(toDoDto);
-            };
+            var toDos = _mapper.Map<List<ToDoDto>>(user.ToDoTasks);
 
             return toDos;
         }
@@ -53,23 +44,17 @@ namespace Homework.WebApi.ToDoApp.Services
 
             if (user == null)
             {
-                throw new ToDoException(null, null, "User not found!");
+                throw new CustomException(null, null, "User not found!");
             }
 
             var toDo = user.ToDoTasks.FirstOrDefault(t => t.Id == toDoId);
 
             if (toDo == null)
             {
-                throw new ToDoException(null, toDo.Name, "Note does not exist!");
+                throw new CustomException(null, toDo.Name, "Note does not exist!");
             }
 
-            var toDoDto = new ToDoDto
-            {
-                Id = toDo.Id,
-                Name = toDo.Name,
-                IsDone = toDo.IsDone,
-                SubTasks = new List<SubTaskDto>()
-            };
+            var toDoDto = _mapper.Map<ToDoDto>(toDo);
 
             return toDoDto;
         }
@@ -80,25 +65,28 @@ namespace Homework.WebApi.ToDoApp.Services
 
             if (user == null)
             {
-                throw new ToDoException(null, null, "User not found!");
+                throw new CustomException(null, null, "User not found!");
             };
 
             if(toDoRequest == null)
             {
-                throw new ToDoException(null);
+                throw new CustomException(null);
             }
 
             if (string.IsNullOrWhiteSpace(toDoRequest.Name))
             {
-                throw new ToDoException(toDoRequest.Id, toDoRequest.Name, "Name is requried!");
+                throw new CustomException(toDoRequest.Id, toDoRequest.Name, "Name is requried!");
             }
+
+            var subtasks = _mapper.Map<IEnumerable<SubTask>>(toDoRequest.SubTasks);
 
             var todo = new ToDo
             {
                 Name = toDoRequest.Name,
                 IsDone = toDoRequest.IsDone,
                 UserId = userId,
-                User = user
+                User = user,
+                SubTasks = subtasks
             };
 
             user.ToDoTasks.ToList().Add(todo);
@@ -111,14 +99,14 @@ namespace Homework.WebApi.ToDoApp.Services
 
             if (user == null)
             {
-                throw new ToDoException(null, null, "User not found!");
+                throw new CustomException(null, null, "User not found!");
             }
 
             var toDo = user.ToDoTasks.FirstOrDefault(t => t.Id == toDoId);
 
             if (toDo == null)
             {
-                throw new ToDoException(null, toDo.Name, "Note does not exist!");
+                throw new CustomException(null, toDo.Name, "Note does not exist!");
             };
            
             user.ToDoTasks.ToList().Remove(toDo);

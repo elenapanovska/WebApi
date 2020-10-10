@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Homework.WebApi.ToDoApp.Services;
 using Homework.WebApi.ToDoApp.Services.Helpers;
 using Homework.WebApi.ToDoApp.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +16,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Homework.WebApi.ToDoApp.Api
 {
     public class Startup
     {
+        private readonly string _localhost = "http://localhost:56115";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,6 +39,29 @@ namespace Homework.WebApi.ToDoApp.Api
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IToDoService, ToDoService>();
 
+            //automapper
+            var config = new MapperConfiguration(cfg => cfg.AddProfile(new MapperProfile()));
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+
+            //token authorisation
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+           .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = _localhost,
+                    //ValidAudience = _localhost,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("logInSecretKey@123456"))
+                };
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -44,6 +72,8 @@ namespace Homework.WebApi.ToDoApp.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

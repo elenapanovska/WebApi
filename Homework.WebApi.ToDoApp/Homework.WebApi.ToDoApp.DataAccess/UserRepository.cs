@@ -18,7 +18,9 @@ namespace Homework.WebApi.ToDoApp.DataAccess
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users.Include(x => x.ToDoTasks);
+            return _context.Users
+                .Include(x => x.ToDoTasks)
+                .ThenInclude(x => x.SubTasks);
         }
 
         public User GetById(int id)
